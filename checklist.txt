@@ -1,0 +1,8 @@
+1.git config with github
+1.1 user creation and permit mangement of files and dirs
+1.2 process mngment
+2.java installation
+3.java home config
+4.jenkins install and setup
+5.dummy ci pipeline running in jenkins
+6.maven installation
