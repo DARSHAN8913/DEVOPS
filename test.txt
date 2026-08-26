@@ -1,0 +1,5 @@
+1.git config with github
+2.java installation
+3.java home config
+4.jenkins install and setup
+5.dummy ci pipeline running in jenkins
