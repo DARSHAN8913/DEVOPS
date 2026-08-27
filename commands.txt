@@ -1,0 +1,132 @@
+JAVA FOR UBUNTU:
+sudo apt update
+Then check:
+apt-cache policy openjdk-21-jdk 
+
+openjdk-21-jdk:
+  Installed: (none)
+  Candidate: 21.0.12+8-1~26.04
+  Version table:
+     21.0.12+8-1~26.04 500
+        500 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu resolute-updates/universe amd64v3 Packages
+        500 http://security.ubuntu.com/ubuntu resolute-security/universe amd64v3 Packages
+     21.0.11~8ea-1 500
+        500 http://ap-south-1.ec2.archive.ubuntu.com/ubuntu resolute/universe amd64v3 Packages
+
+apt-cache search openjdk-21-jdk
+ubuntu@ip-172-31-46-144:~/devops-lab$ apt-cache search openjdk-21-jdk
+openjdk-21-jdk - OpenJDK Development Kit (JDK)
+openjdk-21-jdk-headless - OpenJDK Development Kit (JDK) (headless)
+ubuntu@ip-172-31-46-144:~/devops-lab$
+
+sudo apt install -y openjdk-21-jdk
+
+ubuntu@ip-172-31-46-144:~/devops-lab$ java -version
+openjdk version "21.0.12" 2026-07-21
+OpenJDK Runtime Environment (build 21.0.12+8-1-26.04-Ubuntu)
+OpenJDK 64-Bit Server VM (build 21.0.12+8-1-26.04-Ubuntu, mixed mode, sharing)
+ubuntu@ip-172-31-46-144:~/devops-lab$ javac  -version
+javac 21.0.12
+
+=============================================
+
+Config JAVA_HOME:
+ubuntu@ip-172-31-46-144:~$  update-alternatives --config java
+There is 1 choice for the alternative java (providing /usr/bin/java).
+
+  Selection    Path                                         Priority   Status
+------------------------------------------------------------
+* 0            /usr/lib/jvm/java-21-openjdk-amd64/bin/java   2111      auto mode
+  1            /usr/lib/jvm/java-21-openjdk-amd64/bin/java   2111      manual mode
+
+Press <enter> to keep the current choice[*], or type selection number:
+ubuntu@ip-172-31-46-144:~$ sudo nano /etc/environment
+ubuntu@ip-172-31-46-144:~$ source /etc/environment
+ubuntu@ip-172-31-46-144:~$ echo $JAVA_HOME
+/usr/lib/jvm/java-21-openjdk-amd64/bin/java
+
+
+
+================================================
+
+jenkins install:
+ubuntu@ip-172-31-46-144:~$ sudo wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+  https://pkg.jenkins.io/debian-stable/jenkins.io-2026.key
+echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+  https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+  /etc/apt/sources.list.d/jenkins.list > /dev/null
+sudo apt update
+sudo apt install jenkins
+
+JENKINS SSH CONF FOR GIT:
+
+ubuntu@ip-172-31-46-144:~$ sudo -u jenkins ssh-keygen -t ed25519 -C jenkins-aws-key
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/var/lib/jenkins/.ssh/id_ed25519):
+Created directory '/var/lib/jenkins/.ssh'.
+Enter passphrase for "/var/lib/jenkins/.ssh/id_ed25519" (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /var/lib/jenkins/.ssh/id_ed25519
+Your public key has been saved in /var/lib/jenkins/.ssh/id_ed25519.pub
+The key fingerprint is:
+SHA256:1J6FGJ6FGH6F4J64F6JF646JF4RY8 jenkins-aws-key
+The key's randomart image is:
+<SOMETHING>
+
+ubuntu@ip-172-31-46-144:~$ sudo cat /var/lib/jenkins/.ssh/id_ed25519.pub
+SHA256:1J6FGJ6FGH6F4J64F6JF646JF4RY8 jenkins-aws-key
+
+ubuntu@ip-172-31-46-144:~$ sudo  -u jenkins ssh -T git@github.com
+The authenticity of host 'github.com (20.207.73.82)' can't be established.
+ED25519 key fingerprint is: SOMETHIN
+This key is not known by any other names.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'github.com' (ED25519) to the list of known hosts.
+Hi DARSHAN8913! You've successfully authenticated, but GitHub does not provide shell access.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+creds of aws jenkins:
+username: aws-darsh
+pswd: jenkins
+email : dd
